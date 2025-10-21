@@ -6,6 +6,7 @@ import type {
 } from "react-hook-form";
 import { useWatch } from "react-hook-form";
 import type { RecipeFormData, UnscrewingStep } from "../types/types";
+import { validateCoordinate } from "../utils/validation";
 
 type Props = {
 	index: number;
@@ -62,10 +63,17 @@ export default function UnscrewingEditor({
 								id={`steps.${index}.coordinateX`}
 								{...register(`steps.${index}.coordinateX` as const, {
 									valueAsNumber: true,
+									validate: (val) =>
+										validateCoordinate("Coordinate X", mode, val),
 								})}
 								className="p-1 border rounded w-20 text-sm"
 								placeholder="12.5"
 							/>
+							{errors?.coordinateX && (
+								<p className="text-red-500 text-sm mt-1">
+									{errors.coordinateX.message as string}
+								</p>
+							)}
 						</div>
 						<div className="flex items-center gap-2">
 							<label
@@ -79,10 +87,17 @@ export default function UnscrewingEditor({
 								id={`steps.${index}.coordinateY`}
 								{...register(`steps.${index}.coordinateY` as const, {
 									valueAsNumber: true,
+									validate: (val) =>
+										validateCoordinate("Coordinate X", mode, val),
 								})}
 								className="p-1 border rounded w-20 text-sm"
 								placeholder="8.3"
 							/>
+							{errors?.coordinateY && (
+								<p className="text-red-500 text-sm mt-1">
+									{errors.coordinateY.message as string}
+								</p>
+							)}
 						</div>
 					</>
 				)}

@@ -23,6 +23,8 @@ export default function RecipeForm({ initialData, onSubmit }: Props) {
 		formState: { errors },
 		reset,
 	} = useForm<RecipeFormData>({
+		mode: "onBlur",
+		reValidateMode: "onChange",
 		defaultValues: initialData || { name: "", description: "", steps: [] },
 	});
 

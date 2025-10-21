@@ -6,6 +6,7 @@ import type {
 } from "react-hook-form";
 import { useWatch } from "react-hook-form";
 import type { RecipeFormData, TakeImageStep } from "../types/types";
+import { validateCoordinate } from "../utils/validation";
 
 type Props = {
 	index: number;
@@ -74,10 +75,17 @@ export default function TakeImageEditor({
 								id={`steps.${index}.centerX`}
 								{...register(`steps.${index}.centerX` as const, {
 									valueAsNumber: true,
+									validate: (val) =>
+										validateCoordinate("Coordinate X", scope, val),
 								})}
 								className="p-1 border rounded w-20 text-sm"
 								placeholder="120"
 							/>
+							{errors?.centerX && (
+								<p className="text-red-500 text-sm mt-1">
+									{errors.centerX.message as string}
+								</p>
+							)}
 						</div>
 						<div className="flex items-center gap-2">
 							<label
@@ -91,10 +99,17 @@ export default function TakeImageEditor({
 								id={`steps.${index}.centerY`}
 								{...register(`steps.${index}.centerY` as const, {
 									valueAsNumber: true,
+									validate: (val) =>
+										validateCoordinate("Coordinate X", scope, val),
 								})}
 								className="p-1 border rounded w-20 text-sm"
 								placeholder="85"
 							/>
+							{errors?.centerY && (
+								<p className="text-red-500 text-sm mt-1">
+									{errors.centerY.message as string}
+								</p>
+							)}
 						</div>
 					</>
 				)}

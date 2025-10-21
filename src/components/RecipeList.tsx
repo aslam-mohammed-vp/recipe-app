@@ -21,8 +21,12 @@ export default function RecipeList({
 				<h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
 					Recipes
 				</h1>
-				<button type="button" onClick={onAddClick} className="btn-primary">
-					+ Add Recipe
+				<button
+					type="button"
+					onClick={onAddClick}
+					className="px-4 py-2 btn-primary"
+				>
+					✚ Add Recipe
 				</button>
 			</div>
 

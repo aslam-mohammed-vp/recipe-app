@@ -1,5 +1,3 @@
-// src/components/UnscrewingEditor.tsx
-
 import type {
 	Control,
 	FieldErrors,
@@ -22,7 +20,6 @@ export default function UnscrewingEditor({
 	register,
 	errors,
 }: Props) {
-	// const { id: index } = field;
 	const mode = useWatch({
 		control: control as unknown as Control<FieldValues>,
 		name: `steps.${index}.mode` as const,
@@ -31,7 +28,6 @@ export default function UnscrewingEditor({
 	return (
 		<div className="flex flex-col gap-1">
 			<div className="flex items-center gap-4 mt-1">
-				{/* Mode */}
 				<div className="flex items-center gap-2">
 					<label
 						htmlFor={`steps.${index}.mode`}
@@ -52,8 +48,6 @@ export default function UnscrewingEditor({
 						<p className="text-red-500 text-xs ml-1">{errors.mode.message}</p>
 					)}
 				</div>
-
-				{/* Coordinate X */}
 				{mode === "Specific" && (
 					<>
 						<div className="flex items-center gap-2">
@@ -73,8 +67,6 @@ export default function UnscrewingEditor({
 								placeholder="12.5"
 							/>
 						</div>
-
-						{/* Coordinate Y */}
 						<div className="flex items-center gap-2">
 							<label
 								htmlFor={`steps.${index}.coordinateY`}

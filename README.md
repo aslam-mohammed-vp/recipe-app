@@ -1,3 +1,36 @@
+# Recipe Creation App
+
+## Functionalities
+
+- List of recipes
+  - Edit existing recipe
+  - Remove recipe
+  - Export recipe to JSON
+- Create recipes
+  - Import recipe JSON file
+  - Add steps
+  - Rearrage steps by drag and drop
+
+## How to run locally
+
+1. Clone the repo
+2. Navigate to the repo and install dependencies (npm i)
+3. Run the app (npm run dev)
+
+## Repo features
+
+1. Biome for linting
+2. Enforced code quality by using Husky and lint-staged to block commits with unlinted or untested code.
+
+## Further Improvements
+
+- Constants and strings cleanup along with addition of support for traslations
+- Unit tests
+- Types tuning with enum/interface
+- Error Handling with error codes and dedicated error pop ups
+- Dark/Light theme
+- Persistent storage using localStorage
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -40,15 +73,15 @@ export default defineConfig([
       // other options...
     },
   },
-])
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from 'eslint-plugin-react-x';
+import reactDom from 'eslint-plugin-react-dom';
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -69,5 +102,5 @@ export default defineConfig([
       // other options...
     },
   },
-])
+]);
 ```

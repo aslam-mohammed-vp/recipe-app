@@ -1,13 +1,12 @@
-// src/components/RecipeForm.tsx
-
 import type { DragEndEvent } from "@dnd-kit/core";
 import { DndContext } from "@dnd-kit/core";
 import {
 	SortableContext,
 	verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { useRef } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import type { RecipeFormData, RecipeStep } from "../types/types";
+import type { RecipeFormData, RecipeStep, StepType } from "../types/types";
 import SortableItem from "./SortableItem";
 
 type Props = {
@@ -22,6 +21,7 @@ export default function RecipeForm({ initialData, onSubmit }: Props) {
 		handleSubmit,
 		setError,
 		formState: { errors },
+		reset,
 	} = useForm<RecipeFormData>({
 		defaultValues: initialData || { name: "", description: "", steps: [] },
 	});
@@ -31,11 +31,9 @@ export default function RecipeForm({ initialData, onSubmit }: Props) {
 		name: "steps",
 	});
 
-	// useEffect(() => {
-	//   if (initialData) reset(initialData);
-	// }, [initialData, reset]); // run only once
+	const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-	const addStep = (type: "TakeImage" | "Unscrewing") => {
+	const addStep = (type: StepType) => {
 		if (type === "TakeImage") {
 			append({
 				id: Date.now(),
@@ -54,6 +52,34 @@ export default function RecipeForm({ initialData, onSubmit }: Props) {
 				coordinateY: undefined,
 			});
 		}
+	};
+
+	const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0];
+		if (!file) return;
+
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			try {
+				const parsed = JSON.parse(e.target?.result as string) as RecipeFormData;
+				if (!parsed.name || !parsed.steps) {
+					alert("Invalid recipe format.");
+					return;
+				}
+				parsed.steps = parsed.steps.map((s, idx) => ({
+					id: s.id ?? Date.now() + idx,
+					...s,
+				}));
+				reset(parsed);
+			} catch (e) {
+				alert(`Failed to parse JSON file.:${e?.toString()}`);
+			}
+		};
+		reader.readAsText(file);
+	};
+
+	const handleImportClick = () => {
+		fileInputRef.current?.click();
 	};
 
 	const submitHandler = (data: RecipeFormData) => {
@@ -99,13 +125,11 @@ export default function RecipeForm({ initialData, onSubmit }: Props) {
 			onSubmit={handleSubmit(submitHandler)}
 			className="flex flex-col gap-4"
 		>
-			{/* Recipe Name */}
 			<div className="flex flex-col gap-1">
 				<label htmlFor="name" className="font-medium">
 					Recipe Name
 				</label>
 				<input
-					//   id='name'
 					autoComplete="on"
 					{...register("name", { required: "Recipe name required" })}
 					className="p-2 border rounded-lg"
@@ -114,26 +138,36 @@ export default function RecipeForm({ initialData, onSubmit }: Props) {
 					<p className="text-red-500 text-sm">{errors.name.message}</p>
 				)}
 			</div>
-
-			{/* Add Step Buttons */}
 			<div className="flex gap-2 mb-4">
 				<button
 					type="button"
 					onClick={() => addStep("TakeImage")}
-					className="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+					className="btn-primary px-3 py-1"
 				>
-					+ Add Take Image
+					✚ Add Take Image
 				</button>
 				<button
 					type="button"
 					onClick={() => addStep("Unscrewing")}
-					className="px-3 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700"
+					className="btn-primary px-3 py-1"
 				>
-					+ Add Unscrewing
+					✚ Add Unscrewing
 				</button>
+				<button
+					type="button"
+					onClick={handleImportClick}
+					className="btn-primary px-3 py-1"
+				>
+					📂 Import Recipe
+				</button>
+				<input
+					ref={fileInputRef}
+					type="file"
+					accept="application/json"
+					onChange={handleImport}
+					className="hidden"
+				/>
 			</div>
-			{/* Steps List */}
-
 			<div className="max-h-[60vh] overflow-y-auto border p-2 rounded-lg space-y-2">
 				<DndContext onDragEnd={handleDragEnd}>
 					<SortableContext
@@ -143,8 +177,8 @@ export default function RecipeForm({ initialData, onSubmit }: Props) {
 						{fields.map((field, index) => {
 							return (
 								<SortableItem
-									key={field.id} // RHF internal id
-									field={field} // for DnD
+									key={field.id}
+									field={field}
 									step={field as RecipeStep}
 									index={index}
 									control={control}
@@ -157,12 +191,7 @@ export default function RecipeForm({ initialData, onSubmit }: Props) {
 					</SortableContext>
 				</DndContext>
 			</div>
-
-			{/* Submit Button */}
-			<button
-				type="submit"
-				className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
-			>
+			<button type="submit" className="btn-primary px-4 py-2 ">
 				Submit Recipe
 			</button>
 		</form>

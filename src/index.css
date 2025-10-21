@@ -4,15 +4,15 @@
 @layer components {
 	.btn-primary {
 		/* biome-ignore lint/suspicious/noUnknownAtRules: <explanation> */
-		@apply px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition;
+		@apply bg-gray-600 text-white rounded-lg hover:bg-gray-700;
 	}
 	.btn-secondary {
 		/* biome-ignore lint/suspicious/noUnknownAtRules: <explanation> */
-		@apply px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition;
+		@apply bg-gray-500 text-white rounded-lg hover:bg-gray-700;
 	}
 	.btn-remove {
 		/* biome-ignore lint/suspicious/noUnknownAtRules: <explanation> */
-		@apply px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition;
+		@apply bg-red-600 hover:bg-red-700 text-white rounded-lg transition;
 	}
 }
 
@@ -31,15 +31,6 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-a {
-	font-weight: 500;
-	color: #646cff;
-	text-decoration: inherit;
-}
-a:hover {
-	color: #535bf2;
-}
-
 body {
 	margin: 0;
 	min-width: 320px;
@@ -51,29 +42,6 @@ h1 {
 	font-size: 3.2em;
 	line-height: 1.1;
 }
-
-/* @layer base {
-  button {
-    @apply rounded-lg border border-transparent px-4 py-2 text-base font-medium font-sans
-           bg-neutral-900 text-white cursor-pointer transition-colors duration-200
-           hover:border-indigo-400 focus:outline-none focus-visible:ring-4 focus-visible:ring-indigo-500;
-  }
-
-  @media (prefers-color-scheme: light) {
-    button {
-      @apply bg-gray-100 text-gray-900 hover:border-indigo-500;
-    }
-  }
-} */
 @media (prefers-color-scheme: light) {
-	:root {
-		color: #213547;
-		background-color: #ffffff;
-	}
-	a:hover {
-		color: #747bff;
-	}
-	button {
-		background-color: #f9f9f9;
-	}
+	/* TODO */
 }

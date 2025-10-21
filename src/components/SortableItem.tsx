@@ -1,5 +1,3 @@
-// src/components/SortableItem.tsx
-
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { Control, FieldErrors, UseFormRegister } from "react-hook-form";
@@ -41,7 +39,6 @@ export default function SortableItem({
 			style={style}
 			className="flex mb-2 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden"
 		>
-			{/* Drag handle full-height */}
 			<div
 				{...listeners}
 				{...attributes}
@@ -50,8 +47,6 @@ export default function SortableItem({
 			>
 				☰
 			</div>
-
-			{/* Card content */}
 			<div className="flex-1 p-4 bg-gray-50 dark:bg-gray-800 flex flex-col gap-3">
 				<div className="flex justify-between items-center">
 					<span className="font-semibold text-gray-900 dark:text-gray-100">

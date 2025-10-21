@@ -1,5 +1,3 @@
-// src/components/TakeImageEditor.tsx
-
 import type {
 	Control,
 	FieldErrors,
@@ -22,7 +20,6 @@ export default function TakeImageEditor({
 	register,
 	errors,
 }: Props) {
-	// const { id: index } = field;
 	const scope = useWatch({
 		control: control as unknown as Control<FieldValues>,
 		name: `steps.${index}.scope` as const,
@@ -30,7 +27,6 @@ export default function TakeImageEditor({
 
 	return (
 		<div className="flex flex-col gap-1">
-			{/* Include Pointcloud */}
 			<label
 				htmlFor={`steps.${index}.includePointcloud`}
 				className="flex items-center gap-2 text-sm"
@@ -43,10 +39,7 @@ export default function TakeImageEditor({
 				/>
 				Include Pointcloud
 			</label>
-
-			{/* Scope and Coordinates in one line */}
 			<div className="flex items-center gap-4 mt-1">
-				{/* Scope */}
 				<div className="flex items-center gap-2">
 					<label
 						htmlFor={`steps.${index}.scope`}
@@ -67,8 +60,6 @@ export default function TakeImageEditor({
 						<p className="text-red-500 text-xs ml-1">{errors.scope.message}</p>
 					)}
 				</div>
-
-				{/* Center X */}
 				{scope === "Section" && (
 					<>
 						<div className="flex items-center gap-2">
@@ -88,8 +79,6 @@ export default function TakeImageEditor({
 								placeholder="120"
 							/>
 						</div>
-
-						{/* Center Y */}
 						<div className="flex items-center gap-2">
 							<label
 								htmlFor={`steps.${index}.centerY`}
